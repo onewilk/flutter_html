@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:flutter/gestures.dart';
+import 'package:chewie/chewie.dart';
+import 'package:chewie_audio/chewie_audio.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 Map<String, String> namedColors = {
   "White": "#FFFFFF",
@@ -79,6 +81,12 @@ class CustomBorderSide {
 
 String getRandString(int len) {
   var random = Random.secure();
-  var values = List<int>.generate(len, (i) =>  random.nextInt(255));
+  var values = List<int>.generate(len, (i) => random.nextInt(255));
   return base64UrlEncode(values);
+}
+
+class InternalControllers {
+  List<ChewieAudioController> chewieAudioControllers = [];
+  List<ChewieController> chewieControllers = [];
+  List<VideoPlayerController> videoPlayerControllers = [];
 }

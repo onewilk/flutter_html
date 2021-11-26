@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_html/html_parser.dart';
 import 'package:flutter_html/image_render.dart';
 import 'package:flutter_html/src/html_elements.dart';
+import 'package:flutter_html/src/utils.dart';
 import 'package:flutter_html/style.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:webview_flutter/webview_flutter.dart';
@@ -148,10 +149,23 @@ class Html extends StatelessWidget {
     ..addAll(TABLE_CELL_ELEMENTS)
     ..addAll(TABLE_DEFINITION_ELEMENTS);
 
+  final InternalControllers controllers = InternalControllers();
+
+  void dispose() {
+    controllers.chewieAudioControllers.forEach((element) {
+      element.dispose();
+    });
+    controllers.chewieControllers.forEach((element) {
+      element.dispose();
+    });
+    controllers.videoPlayerControllers.forEach((element) {
+      element.dispose();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final dom.Document doc =
-        data != null ? HtmlParser.parseHTML(data!) : document!;
+    final dom.Document doc = data != null ? HtmlParser.parseHTML(data!) : document!;
     final double? width = shrinkWrap ? null : MediaQuery.of(context).size.width;
 
     return Container(
@@ -211,34 +225,34 @@ class SelectableHtml extends StatelessWidget {
   /// (e.g. bold or italic), while container related styling (e.g. borders or padding/margin)
   /// do not work because we can't use the `ContainerSpan` class (it needs an enclosing `WidgetSpan`).
 
-  SelectableHtml({
-    Key? key,
-    GlobalKey? anchorKey,
-    required this.data,
-    this.onLinkTap,
-    this.onAnchorTap,
-    this.onCssParseError,
-    this.shrinkWrap = false,
-    this.style = const {},
-    this.tagsList = const [],
-    this.selectionControls
-  }) : document = null,
+  SelectableHtml(
+      {Key? key,
+      GlobalKey? anchorKey,
+      required this.data,
+      this.onLinkTap,
+      this.onAnchorTap,
+      this.onCssParseError,
+      this.shrinkWrap = false,
+      this.style = const {},
+      this.tagsList = const [],
+      this.selectionControls})
+      : document = null,
         assert(data != null),
         _anchorKey = anchorKey ?? GlobalKey(),
         super(key: key);
 
-  SelectableHtml.fromDom({
-    Key? key,
-    GlobalKey? anchorKey,
-    required this.document,
-    this.onLinkTap,
-    this.onAnchorTap,
-    this.onCssParseError,
-    this.shrinkWrap = false,
-    this.style = const {},
-    this.tagsList = const [],
-    this.selectionControls
-  }) : data = null,
+  SelectableHtml.fromDom(
+      {Key? key,
+      GlobalKey? anchorKey,
+      required this.document,
+      this.onLinkTap,
+      this.onAnchorTap,
+      this.onCssParseError,
+      this.shrinkWrap = false,
+      this.style = const {},
+      this.tagsList = const [],
+      this.selectionControls})
+      : data = null,
         assert(document != null),
         _anchorKey = anchorKey ?? GlobalKey(),
         super(key: key);
@@ -277,6 +291,20 @@ class SelectableHtml extends StatelessWidget {
   final TextSelectionControls? selectionControls;
 
   static List<String> get tags => new List<String>.from(SELECTABLE_ELEMENTS);
+
+  final InternalControllers controllers = InternalControllers();
+
+  void dispose() {
+    controllers.chewieAudioControllers.forEach((element) {
+      element.dispose();
+    });
+    controllers.chewieControllers.forEach((element) {
+      element.dispose();
+    });
+    controllers.videoPlayerControllers.forEach((element) {
+      element.dispose();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
