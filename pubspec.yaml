@@ -22,7 +22,7 @@ dependencies:
   chewie:
     git:
       url: https://github.com/mgzzZ/chewie.git
-      ref: fix/change_version
+      ref: master
 
   # Plugin for rendering the <iframe> tag.
   webview_flutter: '>=2.0.4 <3.0.0'
@@ -37,7 +37,7 @@ dependencies:
   flutter_math_fork:
     git:
       url: https://github.com/mgzzZ/flutter_math_fork.git
-      ref: fix/change_provider_version
+      ref: master
 
   # plugin for firstWhereOrNull extension on lists
   collection: '>=1.15.0 <2.0.0'
