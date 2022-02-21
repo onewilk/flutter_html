@@ -7,10 +7,10 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  flutter_html:
-    path: ..
   flutter:
     sdk: flutter
+  flutter_html:
+    path: ..
 
 dev_dependencies:
   flutter_test:
